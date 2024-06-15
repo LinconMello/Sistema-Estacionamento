@@ -1,0 +1,80 @@
+package aula9;
+
+import javax.swing.JOptionPane;
+
+public class Exercicio4Estacionamento {
+
+	public static void main(String[] args) {
+
+		String estacionamento[] = new String[10];
+
+		while (true) {
+			int menu = Integer.parseInt(
+					JOptionPane.showInputDialog("Menu:\n1 Entrada\n2 Saída" + "\n3 Situação Atual\n4 Encerrar"));
+
+			switch (menu) {
+
+			case 1:
+				insereCarro(estacionamento);
+				break;
+			case 2:
+				retiraCarro(estacionamento);
+				break;
+			case 3:
+				exibeCarro(estacionamento);
+				break;
+			case 4:
+				JOptionPane.showInputDialog("Encerrando o programa!");
+				System.exit(0);
+				break;
+
+			default:
+				JOptionPane.showInputDialog("Opção inválida, escolha uma opção válida!");
+				break;
+			}
+		}
+	}
+
+	private static void exibeCarro(String vagas[]) {
+
+		String situacao = "Situação atual das vagas: \n";
+		for (int i = 0; i < vagas.length; i++) {
+			situacao += "Vaga " + i + ": " + (vagas[i] == null || vagas[i].equals("") ? "Vaga vazia" : vagas[i]) + "\n";
+		}
+		JOptionPane.showMessageDialog(null, situacao);
+	}
+
+	
+	
+	private static void insereCarro(String estacionamento[]) {
+		int vaga = Integer.parseInt(JOptionPane.showInputDialog("Digite o número da vaga entre 0 a 9: "));
+
+		if (estacionamento[vaga] != null && !"".equals(estacionamento[vaga])) {
+			JOptionPane.showMessageDialog(null, "Vaga ja esta em uso, escolha outra!");
+			return;
+		}
+		String placa = JOptionPane.showInputDialog("Digite a placa do veículo: ");
+		if (vaga >= 0 && vaga <= 9) {
+			estacionamento[vaga] = placa;
+		} else {
+			JOptionPane.showInputDialog(null, "Vaga inválida. Digite um numero de vaga entre 0 a 9.");
+		}
+	}
+
+	
+	
+	private static void retiraCarro(String estacionamento[]) {
+		int vagaLiberada = Integer.parseInt(JOptionPane.showInputDialog("Digite o numero da vaga de 0 a 9: "));
+
+		if (estacionamento[vagaLiberada] == null || estacionamento[vagaLiberada].equals("")) {
+			JOptionPane.showMessageDialog(null,"A vaga ja esta vazia!");
+			return;
+		}
+		if (vagaLiberada >= 0 && vagaLiberada <= 9) {
+			estacionamento[vagaLiberada] = "";
+			JOptionPane.showMessageDialog(null, "Vaga " + vagaLiberada + " liberada");
+		} else {
+			JOptionPane.showMessageDialog(null, "Vaga inválida. Digite um numero de vaga entre 0 a 9.");
+		}
+	}
+}
